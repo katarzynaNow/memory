@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {faM} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-navigation',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
+  icon = faM;
 
 }
