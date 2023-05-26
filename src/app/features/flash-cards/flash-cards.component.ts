@@ -1,11 +1,38 @@
-import { Component } from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {CategoryService} from "../../services/category.service";
+import {ActivatedRoute} from "@angular/router";
+import {FlashCardService} from "../../services/flash-card.service";
+import {Category} from "../../models/category";
+import {FlashCard} from "../../models/flash-card";
 
 @Component({
   selector: "app-flash-cards",
   templateUrl: "./flash-cards.component.html",
   styleUrls: ["./flash-cards.component.css"],
 })
-export class FlashCardsComponent {
+export class FlashCardsComponent implements OnInit{
   plusIcon = faPlus;
+  category?: Category;
+  flashCards: FlashCard[] = [];
+
+  constructor(private categoryService: CategoryService,
+              private flashCardsService: FlashCardService,
+              private activatedRoute: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(param => {
+      const idString = param.get('category-id');
+      if(idString){
+        const id = Number.parseInt(idString);
+
+        this.categoryService.getCategory(id)
+          .subscribe(c => this.category = c);
+
+        this.flashCardsService.getCards(id)
+          .subscribe(f => this.flashCards = f);
+      }
+    })
+  }
 }
