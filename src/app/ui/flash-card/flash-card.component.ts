@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -9,5 +9,10 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 export class FlashCardComponent {
   @Input() word = "";
   @Input() translation = "";
+  @Output() removeClicked = new EventEmitter<void>();
   trashIcon = faTrash;
+
+  emitRemove() {
+    this.removeClicked.emit();
+  }
 }

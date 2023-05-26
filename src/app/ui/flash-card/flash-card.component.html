@@ -1,11 +1,11 @@
 <div class="card flash-card">
   <div>
-    <span>{{word}}</span>
+    <span>{{ word }}</span>
     <hr />
-    <span>{{translation}}</span>
+    <span>{{ translation }}</span>
   </div>
   <div>
-    <button class="btn btn-sm">
+    <button (click)="emitRemove()" class="btn btn-sm">
       <fa-icon [icon]="trashIcon"></fa-icon>
     </button>
   </div>
