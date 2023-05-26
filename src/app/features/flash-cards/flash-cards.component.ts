@@ -16,6 +16,9 @@ export class FlashCardsComponent implements OnInit{
   category?: Category;
   flashCards: FlashCard[] = [];
 
+  word = "";
+  translation = "";
+
   constructor(private categoryService: CategoryService,
               private flashCardsService: FlashCardService,
               private activatedRoute: ActivatedRoute) {
@@ -34,5 +37,17 @@ export class FlashCardsComponent implements OnInit{
           .subscribe(f => this.flashCards = f);
       }
     })
+  }
+
+  addFlashCard() {
+    if(this.category?.id){
+      this.flashCardsService
+        .addCard(this.category.id, {word: this.word, translation: this.translation})
+        .subscribe(f => {
+          this.flashCards.push(f);
+          this.word = "";
+          this.translation = "";
+        })
+    }
   }
 }
